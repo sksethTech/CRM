@@ -71,14 +71,14 @@ app.get('/health', (req, res) => {
 });
 
 // API Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/customers', customerRoutes);
-app.use('/api/products', productRoutes);
-app.use('/api/orders', orderRoutes);
-app.use('/api/appointments', appointmentRoutes);
-app.use('/api/custom-orders', customOrderRoutes);
-app.use('/api/interactions', interactionRoutes);
-app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/customers', customerRoutes);
+app.use('/api/v1/products', productRoutes);
+app.use('/api/v1/orders', orderRoutes);
+app.use('/api/v1/appointments', appointmentRoutes);
+app.use('/api/v1/custom-orders', customOrderRoutes);
+app.use('/api/v1/interactions', interactionRoutes);
+app.use('/api/v1/dashboard', dashboardRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {
@@ -87,14 +87,14 @@ app.get('/', (req, res) => {
     message: 'Jewellery CRM API - Welcome!',
     version: '1.0.0',
     endpoints: {
-      auth: '/api/auth',
-      customers: '/api/customers',
-      products: '/api/products',
-      orders: '/api/orders',
-      appointments: '/api/appointments',
-      customOrders: '/api/custom-orders',
-      interactions: '/api/interactions',
-      dashboard: '/api/dashboard'
+      auth: '/api/v1/auth',
+      customers: '/api/v1/customers',
+      products: '/api/v1/products',
+      orders: '/api/v1/orders',
+      appointments: '/api/v1/appointments',
+      customOrders: '/api/v1/custom-orders',
+      interactions: '/api/v1/interactions',
+      dashboard: '/api/v1/dashboard'
     }
   });
 });
@@ -117,14 +117,14 @@ const server = app.listen(PORT, () => {
 ║   🗄️  Database: Connected                                 ║
 ║                                                           ║
 ║   API Endpoints:                                          ║
-║   • Auth:         /api/auth                               ║
-║   • Customers:    /api/customers                           ║
-║   • Products:     /api/products                            ║
-║   • Orders:       /api/orders                              ║
-║   • Appointments: /api/appointments                        ║
-║   • Custom Orders:/api/custom-orders                       ║
-║   • Interactions: /api/interactions                        ║
-║   • Dashboard:    /api/dashboard                           ║
+║   • Auth:         /api/v1/auth                            ║
+║   • Customers:    /api/v1/customers                        ║
+║   • Products:     /api/v1/products                         ║
+║   • Orders:       /api/v1/orders                           ║
+║   • Appointments: /api/v1/appointments                     ║
+║   • Custom Orders:/api/v1/custom-orders                    ║
+║   • Interactions: /api/v1/interactions                     ║
+║   • Dashboard:    /api/v1/dashboard                        ║
 ║                                                           ║
 ╚═══════════════════════════════════════════════════════════╝
   `);
