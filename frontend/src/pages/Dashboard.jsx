@@ -48,32 +48,8 @@ const Dashboard = () => {
 
   return (
     <div style={{ minHeight: '100vh', background: '#f5f7fa' }}>
-      {/* Header */}
-      <header style={{
-        background: 'white',
-        padding: '16px 24px',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <span style={{ fontSize: '24px' }}>💎</span>
-          <h1 style={{ fontSize: '20px', fontWeight: '600', color: '#1f2937' }}>Jewellery CRM</h1>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <div style={{ textAlign: 'right' }}>
-            <p style={{ fontWeight: '500', color: '#1f2937' }}>{user?.name}</p>
-            <p style={{ fontSize: '12px', color: '#6b7280', textTransform: 'capitalize' }}>{user?.role}</p>
-          </div>
-          <button onClick={handleLogout} className="btn btn-secondary">
-            Logout
-          </button>
-        </div>
-      </header>
-
       {/* Main Content */}
-      <main className="container" style={{ padding: '24px' }}>
+      <main style={{ padding: '0' }}>
         <div style={{ marginBottom: '24px' }}>
           <h2 style={{ fontSize: '24px', fontWeight: '600', color: '#1f2937', marginBottom: '8px' }}>
             Dashboard Overview

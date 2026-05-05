@@ -7,10 +7,12 @@ import Customers from './pages/Customers';
 import Products from './pages/Products';
 import Placeholder from './pages/Placeholder';
 
+import MainLayout from './components/MainLayout';
+
 const PrivateRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
   if (loading) return <div style={{textAlign:'center',padding:'40px'}}>Loading...</div>;
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  return isAuthenticated ? <MainLayout>{children}</MainLayout> : <Navigate to="/login" />;
 };
 
 const AppRoutes = () => {
