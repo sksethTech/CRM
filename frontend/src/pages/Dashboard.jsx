@@ -16,7 +16,15 @@ const Dashboard = () => {
   const fetchDashboardStats = async () => {
     try {
       const response = await api.get('/dashboard/stats');
-      setStats(response.data);
+      const data = response.data.data;
+      setStats({
+        totalCustomers: data.customers.total,
+        totalProducts: data.products.total,
+        pendingOrders: data.orders.pending,
+        todayAppointments: data.appointments.today,
+        monthlyRevenue: data.revenue.total,
+        customOrders: data.orders.total
+      });
     } catch (error) {
       console.error('Failed to fetch dashboard stats:', error);
     } finally {

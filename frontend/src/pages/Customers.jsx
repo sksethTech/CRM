@@ -28,9 +28,10 @@ const Customers = () => {
   const fetchCustomers = async () => {
     try {
       const response = await api.get('/customers');
-      setCustomers(response.data);
+      setCustomers(response.data.data || []);
     } catch (error) {
       console.error('Failed to fetch customers:', error);
+      setCustomers([]);
     } finally {
       setLoading(false);
     }
@@ -59,12 +60,13 @@ const Customers = () => {
   const handleEdit = (customer) => {
     setFormData({
       _id: customer._id,
-      name: customer.name,
+      firstName: customer.firstName,
+      lastName: customer.lastName,
       email: customer.email || '',
       phone: customer.phone || '',
       dateOfBirth: customer.dateOfBirth ? new Date(customer.dateOfBirth).toISOString().split('T')[0] : '',
       anniversary: customer.anniversary ? new Date(customer.anniversary).toISOString().split('T')[0] : '',
-      preferences: customer.preferences?.metalType || '',
+      preferences: customer.preferences?.metalTypes?.[0] || '',
       ringSize: customer.preferences?.ringSize || '',
       notes: customer.notes || ''
     });
@@ -84,16 +86,16 @@ const Customers = () => {
 
   const resetForm = () => {
     setFormData({
-      name: '', email: '', phone: '', dateOfBirth: '',
+      firstName: '', lastName: '', email: '', phone: '', dateOfBirth: '',
       anniversary: '', preferences: '', ringSize: '', notes: ''
     });
   };
 
-  const filteredCustomers = customers.filter(customer =>
-    customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  const filteredCustomers = Array.isArray(customers) ? customers.filter(customer =>
+    (customer.firstName + ' ' + customer.lastName).toLowerCase().includes(searchTerm.toLowerCase()) ||
     (customer.email && customer.email.toLowerCase().includes(searchTerm.toLowerCase())) ||
     (customer.phone && customer.phone.includes(searchTerm))
-  );
+  ) : [];
 
   return (
     <div style={{ minHeight: '100vh', background: '#f5f7fa' }}>
@@ -156,10 +158,10 @@ const Customers = () => {
               <tbody>
                 {filteredCustomers.map((customer) => (
                   <tr key={customer._id}>
-                    <td style={{ fontWeight: '500' }}>{customer.name}</td>
+                    <td style={{ fontWeight: '500' }}>{customer.firstName} {customer.lastName}</td>
                     <td>{customer.email || '-'}</td>
                     <td>{customer.phone || '-'}</td>
-                    <td>{customer.preferences?.metalType || '-'}</td>
+                    <td>{customer.preferences?.metalTypes?.join(', ') || '-'}</td>
                     <td>{customer.preferences?.ringSize || '-'}</td>
                     <td>
                       <button
@@ -206,17 +208,30 @@ const Customers = () => {
           <div className="card" style={{ width: '100%', maxWidth: '500px', maxHeight: '90vh', overflow: 'auto' }}>
             <h3 style={{ marginBottom: '20px' }}>{formData._id ? 'Edit Customer' : 'Add New Customer'}</h3>
             <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label>Name *</label>
+            <div style={{ display: 'flex', gap: '12px' }}>
+              <div className="form-group" style={{ flex: 1 }}>
+                <label>First Name *</label>
                 <input
                   type="text"
-                  name="name"
+                  name="firstName"
                   className="form-control"
-                  value={formData.name}
+                  value={formData.firstName}
                   onChange={handleInputChange}
                   required
                 />
               </div>
+              <div className="form-group" style={{ flex: 1 }}>
+                <label>Last Name *</label>
+                <input
+                  type="text"
+                  name="lastName"
+                  className="form-control"
+                  value={formData.lastName}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+            </div>
               <div className="form-group">
                 <label>Email</label>
                 <input

@@ -4,7 +4,8 @@ import { useAuth } from '../context/AuthContext';
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -32,7 +33,8 @@ const Register = () => {
 
     try {
       await register({
-        name: formData.name,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
         email: formData.email,
         password: formData.password,
         role: formData.role
@@ -72,17 +74,31 @@ const Register = () => {
         )}
 
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Full Name</label>
-            <input
-              type="text"
-              name="name"
-              className="form-control"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Enter your full name"
-              required
-            />
+          <div style={{ display: 'flex', gap: '15px' }}>
+            <div className="form-group" style={{ flex: 1 }}>
+              <label>First Name</label>
+              <input
+                type="text"
+                name="firstName"
+                className="form-control"
+                value={formData.firstName}
+                onChange={handleChange}
+                placeholder="First name"
+                required
+              />
+            </div>
+            <div className="form-group" style={{ flex: 1 }}>
+              <label>Last Name</label>
+              <input
+                type="text"
+                name="lastName"
+                className="form-control"
+                value={formData.lastName}
+                onChange={handleChange}
+                placeholder="Last name"
+                required
+              />
+            </div>
           </div>
 
           <div className="form-group">
@@ -106,7 +122,7 @@ const Register = () => {
               className="form-control"
               value={formData.password}
               onChange={handleChange}
-              placeholder="Create a password"
+              placeholder="Create a password (min 6 chars)"
               required
             />
           </div>

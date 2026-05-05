@@ -14,9 +14,10 @@ const Products = () => {
   const fetchProducts = async () => {
     try {
       const response = await api.get('/products');
-      setProducts(response.data);
+      setProducts(response.data.data || []);
     } catch (error) {
       console.error('Failed to fetch products:', error);
+      setProducts([]);
     } finally {
       setLoading(false);
     }
@@ -50,10 +51,10 @@ const Products = () => {
                 {products.map(p => (
                   <tr key={p._id}>
                     <td>{p.name}</td>
-                    <td>{p.category}</td>
-                    <td>{p.metalType}</td>
-                    <td>₹{p.price.toLocaleString()}</td>
-                    <td>{p.stock}</td>
+                    <td style={{ textTransform: 'capitalize' }}>{p.category}</td>
+                    <td style={{ textTransform: 'capitalize' }}>{p.metalType}</td>
+                    <td>₹{p.pricing?.finalPrice?.toLocaleString() || p.pricing?.basePrice?.toLocaleString() || '0'}</td>
+                    <td>{p.stock?.quantity ?? 0}</td>
                   </tr>
                 ))}
               </tbody>
